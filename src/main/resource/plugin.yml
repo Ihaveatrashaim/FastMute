@@ -1,0 +1,10 @@
+name: FastMute
+version: '${project.version}'
+main: net.FastMute
+api-version: 1.18
+authors: [ ihaveatrashaim ]
+commands:
+  fastmute:
+    permission: fastmute.use
+    aliases: [fm, mute, fastm, fmute]
+    description: FastMute plugin
