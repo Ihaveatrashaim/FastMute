@@ -1,0 +1,58 @@
+package net.commands;
+
+import net.MainListener;
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public class MuteCommand implements CommandExecutor {
+
+    //§
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (sender instanceof Player){
+            Player p = (Player) sender;
+            if(p.hasPermission("fastmute.use")){
+                if(args.length == 0){
+                    p.sendMessage("§aFastMute");
+                    p.sendMessage("§7*-----------------------*");
+                    p.sendMessage("§7/fm mute <player> : Mute a player");
+                    p.sendMessage("§7/fm unmute <player> : Mute a player");
+                    p.sendMessage("§7*-----------------------*");
+                }else if(args.length == 1){
+                    p.sendMessage("§aFastMute");
+                    p.sendMessage("§7*-----------------------*");
+                    p.sendMessage("§7/fm mute <player> : Mute a player");
+                    p.sendMessage("§7/fm unmute <player> : Mute a player");
+                    p.sendMessage("§7*-----------------------*");
+                }else if(args.length == 2){
+                    if(args[0].equalsIgnoreCase("mute")){
+                        if(Bukkit.getPlayer(args[1]) == null){
+                            p.sendMessage("§cThis player may not online");
+                        }else{
+                            Player t = (Player) Bukkit.getPlayer(args[1].toString());
+                            MainListener.muted.add(t.getName());
+                            p.sendMessage("§aMuted player : §c" + t.getName());
+                            t.sendMessage("You have been muted by " + p.getName());
+                        }
+                    }
+                    if(args[0].equalsIgnoreCase("unmute")){
+                        if(Bukkit.getPlayer(args[1]) == null){
+                            p.sendMessage("§cThis player may not online");
+                        }else{
+                            Player t = (Player) Bukkit.getPlayer(args[1].toString());
+                            MainListener.muted.add(t.getName());
+                            p.sendMessage("§aUnmuted player : §c" + t.getName());
+                            t.sendMessage("You have been Unmuted by " + p.getName());
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+}
